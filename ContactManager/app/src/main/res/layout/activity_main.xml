@@ -17,6 +17,29 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
 
+        <LinearLayout
+            android:id="@+id/progressLayout1"
+            android:layout_height="50dp"
+            android:layout_width="match_parent">
+
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:indeterminate="false" />
+
+            <TextView
+                android:id="@+id/progressText1"
+                android:layout_width="338dp"
+                android:layout_height="match_parent"
+                android:textSize="20sp"
+                android:gravity="center_vertical"
+                android:text="Please wait while data loads..." />
+
+        </LinearLayout>
+
         <ListView
             android:id="@+id/list"
             android:layout_width="match_parent"
