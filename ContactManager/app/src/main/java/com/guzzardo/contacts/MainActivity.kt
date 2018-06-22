@@ -12,10 +12,8 @@ import android.os.Bundle
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ImageView
-import android.widget.ListView
-import android.widget.ProgressBar
+import android.view.ViewGroup
+import android.widget.*
 
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
@@ -77,19 +75,16 @@ class MainActivity : AppCompatActivity(), MvpView, View.OnClickListener {
     }
 
     private inner class DownloadFilesTask(activity: MainActivity) : AsyncTask<String?, Int?, Void?>() {
-        //private ProgressBar dialog;
+        private val progressBar = findViewById(R.id.progressBar1) as ProgressBar
+        private val progressText = findViewById(R.id.progressText1) as TextView
+        private val progressLayout = findViewById(R.id.progressLayout1) as ViewGroup
+
         //private val dialog: ProgressBar
         private var employeeList: List<Repository.Employee> ? = null
             get()  =  presenter!!.employeeList
 
         override fun onPreExecute() {
-            //dialog.setProgress(0);
-            //dialog.setMax(100);
-            val progressbarstatus = 0
-            //dialog.setProgress();
-
-            //dialog.set .setMessage("Loading data, please wait.")
-            //dialog.show()
+            progressBar.setProgress(10, true)
         }
 
         override fun doInBackground(vararg params: String?): Void? {
@@ -102,8 +97,7 @@ class MainActivity : AppCompatActivity(), MvpView, View.OnClickListener {
                         }
                         loadListView(employeeList!!)
                     }
-                    //publishProgress(i);
-                    //dialog.incrementProgressBy(10);
+                    progressBar.incrementProgressBy(20);
                     Thread.sleep(200)
                 } catch (e: InterruptedException) {
                     Thread.interrupted()
@@ -115,21 +109,8 @@ class MainActivity : AppCompatActivity(), MvpView, View.OnClickListener {
         override fun onPostExecute(result: Void?) {
             // do UI work here
             mListView!!.adapter = myApplication!!.getmAdapter()
-
-            /*
-            if (dialog.isShowing) {
-                dialog.dismiss()
-            }
-            */
+            progressLayout.visibility = View.GONE
         }
-
-        /*
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-        }
-        */
-
 
         //load the small icon bitmaps...
         private fun loadListView(employeeList: List<Repository.Employee>) {
@@ -139,7 +120,6 @@ class MainActivity : AppCompatActivity(), MvpView, View.OnClickListener {
             val listFavorites = arrayOfNulls<String>(employeeList.size)
             val customList = ArrayList<View>()
             val bitmapMap = HashMap<String?, Bitmap?>()
-
             val imageId = resources.getIdentifier("user_icon_small", "drawable", packageName)
 
             if (employeeSmallIcons!!.size == 0) {
