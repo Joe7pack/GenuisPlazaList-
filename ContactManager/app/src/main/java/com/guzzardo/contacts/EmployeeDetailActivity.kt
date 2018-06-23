@@ -38,6 +38,11 @@ class EmployeeDetailActivity : AppCompatActivity() {
 
         val toolbar = findViewById<View>(R.id.tool_bar) as Toolbar
         setSupportActionBar(toolbar)
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.back_arrow));
+
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
 
         val name = this.findViewById<TextView>(R.id.name)
         contactImage = this.findViewById(R.id.contact_image)
@@ -254,7 +259,6 @@ class EmployeeDetailActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        println("back button pressed")
         presenter!!.model.setEmployeeList()
         val mainActivity = myApplication!!.context as MainActivity
         mainActivity.loadListView2(presenter!!.model.employeeList)
@@ -263,7 +267,6 @@ class EmployeeDetailActivity : AppCompatActivity() {
 
     private inner class DownloadContactImageTask(activity: EmployeeDetailActivity) : AsyncTask<String, Void, Void>() {
 
-        private val dialog: ProgressDialog? = null
         private val mCallback = MyCallback()
 
         fun handleMessage(message: Message) {
