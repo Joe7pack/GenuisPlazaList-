@@ -1,6 +1,5 @@
 package com.guzzardo.contacts
 
-import android.app.ProgressDialog
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.AsyncTask
@@ -9,6 +8,7 @@ import android.os.Handler
 import android.os.HandlerThread
 import android.os.Message
 import android.support.constraint.ConstraintLayout
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.Log
@@ -38,7 +38,10 @@ class EmployeeDetailActivity : AppCompatActivity() {
 
         val toolbar = findViewById<View>(R.id.tool_bar) as Toolbar
         setSupportActionBar(toolbar)
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.back_arrow));
+        myApplication = this.application as MyApplication
+
+        val contextCompat = myApplication!!.context!!
+        toolbar.setNavigationIcon(ContextCompat.getDrawable( contextCompat, R.drawable.back_arrow))
 
         toolbar.setNavigationOnClickListener {
             onBackPressed()
@@ -69,10 +72,10 @@ class EmployeeDetailActivity : AppCompatActivity() {
 
         val email = findViewById<TextView>(R.id.email)
         val emailLiteral = findViewById<TextView>(R.id.emailLiteral)
-        myApplication = this.application as MyApplication
 
         val positionSelected = intent.getStringExtra(ID)
-        presenter = (this.application as MyApplication).presenter
+
+        presenter = myApplication!!.presenter
         val employeeId = myApplication!!.getEmployeeIdByPosition(positionSelected)
         val employeeData = presenter!!.model.getEmployee(employeeId)
         contactImageURL = employeeData!!.largeImageURL

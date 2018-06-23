@@ -139,20 +139,16 @@ class Repository(context: Context) : EmployeeModel {
 
     companion object joe {
         private val url = "https://s3.amazonaws.com/technical-challenge/v3/contacts.json"
-        //private var employeeList: List<Employee>? = null
         private var employeeList: List<Employee>? = null
             get() = field
 
         private var employeeMap: MutableMap<String?, Employee?>? = null
-        private val employeeIconMap: Map<String, Drawable>? = null
         private var mContext: Context? = null
 
         var dataLoaded = false
         init {
             false
         }
-
-        internal var employeeSmallIcons: Map<String, Drawable>? = null
 
         private fun setEmployeeList(jsonData: String) {
             try {
