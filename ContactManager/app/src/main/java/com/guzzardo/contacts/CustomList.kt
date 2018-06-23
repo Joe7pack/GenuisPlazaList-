@@ -14,7 +14,7 @@ class CustomList(private val mMyApplication: MyApplication, context: Activity,
                  private val names: Array<String?>, private val company: Array<String?>, private val imageId: Array<Int?>,
                  private val favorite: Array<String?>) : ArrayAdapter<String>(context, R.layout.list_single, names) {
     private val presenter: MainPresenter?
-    private var mOtherContactStartingPosition = 0
+    private var mOtherContactStartingPosition = -1
 
     init {
         presenter = mMyApplication.presenter
@@ -22,17 +22,17 @@ class CustomList(private val mMyApplication: MyApplication, context: Activity,
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
         val rowView = mMyApplication.getCustomList(position)
-
         val txtContactType = rowView.findViewById<View>(R.id.contact_type) as TextView
         txtContactType.text = "FAVORITE CONTACTS"
-
         val imageViewFavorite = rowView.findViewById<View>(R.id.favorite_contact) as ImageView
         if (favorite[position] == "true") {
             imageViewFavorite.setImageResource(R.drawable.favorite_icon_true)
         } else {
-            imageViewFavorite.setImageResource(R.drawable.favorite_icon_false_invisible)
+            imageViewFavorite.visibility = View.INVISIBLE
+            val parms = imageViewFavorite.layoutParams as TableRow.LayoutParams
+            parms.width = 10
             txtContactType.text = "OTHER CONTACTS"
-            if (mOtherContactStartingPosition == 0) {
+            if (mOtherContactStartingPosition < 0 ) {
                 mOtherContactStartingPosition = position
             }
         }
@@ -46,18 +46,11 @@ class CustomList(private val mMyApplication: MyApplication, context: Activity,
             txtContactType.layoutParams = parms
         }
 
-        if (mOtherContactStartingPosition != 0 && position >= mOtherContactStartingPosition) {
-            imageViewFavorite.visibility = View.INVISIBLE
-            val parms = imageViewFavorite.layoutParams as TableRow.LayoutParams
-            parms.width = 10
-        }
-
         val txtName = rowView.findViewById<View>(R.id.contact_name) as TextView
         val txtCompany = rowView.findViewById<View>(R.id.contact_company) as TextView
         val imageView = rowView.findViewById<View>(R.id.img) as ImageView
         txtName.text = names[position]
         txtCompany.text = company[position]
-        //val employee = presenter?.model?.getEmployee(Integer.toString(position))
         val employeeId = mMyApplication.getEmployeeIdByPosition(Integer.toString(position))
         val bitmap = mMyApplication.getSmallIconBitmapMap(employeeId)
         imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 40, 40, false))
