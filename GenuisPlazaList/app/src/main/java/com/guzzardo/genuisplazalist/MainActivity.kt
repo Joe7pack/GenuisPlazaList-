@@ -9,6 +9,8 @@ import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Context
+import android.support.v4.content.ContextCompat
+import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +41,18 @@ class MainActivity : AppCompatActivity(), MvpView, View.OnClickListener {
         myApplication!!.setListView(mListView)
         myApplication!!.context = this
         mContext = this
+
+/*
+        val toolbar = findViewById<View>(R.id.tool_bar) as Toolbar
+        setSupportActionBar(toolbar)
+        myApplication = this.application as MyApplication
+        val contextCompat = myApplication!!.context!!
+        toolbar.setNavigationIcon(ContextCompat.getDrawable(contextCompat, R.drawable.plus_arrow))
+*/
+        val toolbar = findViewById<View>(R.id.my_toolbar) as Toolbar
+        setSupportActionBar(toolbar)
+        //setSupportActionBar(findViewById(R.id.my_toolbar))
+
 
         mListView!!.onItemClickListener = AdapterView.OnItemClickListener { arg0, arg1, position, arg3 ->
             val o = mListView!!.getItemAtPosition(position)

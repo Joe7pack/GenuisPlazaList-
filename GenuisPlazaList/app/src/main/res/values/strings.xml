@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Contacts</string>
+    <string name="app_name">Pretty Smart List</string>
     <string name="employee_detail">Contact Detail</string>
     <string name="employee_master">Contacts</string>
     <string name="action">Favorite</string>
