@@ -11,9 +11,7 @@ import android.os.Bundle
 import android.content.Context
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.*
 
 import java.io.ByteArrayOutputStream
@@ -68,6 +66,35 @@ class MainActivity : AppCompatActivity(), MvpView, View.OnClickListener {
         (this.application as MyApplication).presenter = presenter
         DownloadFilesTask(this).execute("one", "two", "three")
     }
+
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.add_contact_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        val id=item.itemId
+
+
+        if (id == R.id.action_add_contact) {
+            addNewEmployee()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun addNewEmployee() {
+        val i = Intent(this, AddEmployeeActivity::class.java)
+        //i.putExtra(EmployeeDetailActivity.ID, Integer.toString(mEmployeeSelected))
+        startActivity(i)
+    }
+
+
 
     private fun showEmployeeDetail() {
         val i = Intent(this, EmployeeDetailActivity::class.java)

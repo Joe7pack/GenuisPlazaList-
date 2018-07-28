@@ -26,7 +26,11 @@
 
         <activity
             android:name="com.guzzardo.genuisplazalist.EmployeeDetailActivity"
+            android:label="@string/employee_detail">
+        </activity>
 
+        <activity
+            android:name="com.guzzardo.genuisplazalist.AddEmployeeActivity"
             android:label="@string/employee_detail">
         </activity>
 
