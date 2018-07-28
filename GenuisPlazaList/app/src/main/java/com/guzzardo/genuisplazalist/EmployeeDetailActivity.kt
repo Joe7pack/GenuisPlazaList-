@@ -35,9 +35,9 @@ class EmployeeDetailActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.employee_detail)
-
-        val toolbar = findViewById<View>(R.id.tool_bar) as Toolbar
+        val toolbar = findViewById<View>(R.id.detail_tool_bar) as Toolbar
         setSupportActionBar(toolbar)
+
         myApplication = this.application as MyApplication
 
         val contextCompat = myApplication!!.context!!
