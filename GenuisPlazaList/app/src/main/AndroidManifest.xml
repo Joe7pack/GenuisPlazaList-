@@ -19,7 +19,6 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -31,7 +30,7 @@
 
         <activity
             android:name="com.guzzardo.genuisplazalist.AddEmployeeActivity"
-            android:label="@string/employee_detail">
+            android:label="@string/add_employee_detail">
         </activity>
 
     </application>
