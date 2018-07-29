@@ -13,9 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
@@ -25,7 +23,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Iterator;
-
 import javax.net.ssl.HttpsURLConnection;
 
 public class AddEmployeeActivity extends AppCompatActivity {
@@ -99,7 +96,6 @@ public class AddEmployeeActivity extends AppCompatActivity {
                 Toast.makeText(mContext, result, Toast.LENGTH_LONG).show();
                 return;
             }
-
             addNewContact();
         }
     };
@@ -148,7 +144,6 @@ public class AddEmployeeActivity extends AppCompatActivity {
         protected void onPreExecute(){}
 
         protected String doInBackground(String... arg0) {
-
             try {
                 URL url = new URL("https://reqres.in/api/users"); // here is your URL path
                 JSONObject postDataParams = new JSONObject();
@@ -198,13 +193,11 @@ public class AddEmployeeActivity extends AppCompatActivity {
             catch(Exception e){
                 return new String("Exception: " + e.getMessage());
             }
-
         }
 
         @Override
         protected void onPostExecute(String result) {
             //Toast.makeText(mContext, result, Toast.LENGTH_LONG).show();
-
             presenter.getModel().setEmployeeList();
             MainActivity mainActivity = (MainActivity)myApplication.getContext();
             mainActivity.loadListView2(presenter.getModel().getEmployeeList());
@@ -213,26 +206,20 @@ public class AddEmployeeActivity extends AppCompatActivity {
     }
 
     public static String getPostDataString(JSONObject params) throws Exception {
-
         StringBuilder result = new StringBuilder();
         boolean first = true;
-
         Iterator<String> itr = params.keys();
 
         while(itr.hasNext()){
-
             String key= itr.next();
             Object value = params.get(key);
-
             if (first)
                 first = false;
             else
                 result.append("&");
-
             result.append(URLEncoder.encode(key, "UTF-8"));
             result.append("=");
             result.append(URLEncoder.encode(value.toString(), "UTF-8"));
-
         }
         return result.toString();
     }
