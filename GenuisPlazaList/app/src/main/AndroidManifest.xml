@@ -30,6 +30,7 @@
 
         <activity
             android:name="com.guzzardo.genuisplazalist.AddEmployeeActivity"
+            android:launchMode="singleTop"
             android:label="@string/add_employee_detail">
         </activity>
 

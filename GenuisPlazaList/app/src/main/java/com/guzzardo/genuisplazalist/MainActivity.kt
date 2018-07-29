@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity(), MvpView, View.OnClickListener {
     private var mEmployeeSelected: Int = 0
     private var myApplication: MyApplication? = null
     private var mContext: Context? = null
+    private lateinit var  myIntent: Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,11 +90,16 @@ class MainActivity : AppCompatActivity(), MvpView, View.OnClickListener {
     }
 
     private fun addNewEmployee() {
-        val i = Intent(this, AddEmployeeActivity::class.java)
+        myIntent = Intent(this, AddEmployeeActivity::class.java)
         //i.putExtra(EmployeeDetailActivity.ID, Integer.toString(mEmployeeSelected))
-        startActivity(i)
+        myIntent.putExtra("keep", true)
+        startActivity(myIntent)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        //finishActivity(requestCode)
+    }
 
 
     private fun showEmployeeDetail() {
@@ -228,6 +234,10 @@ class MainActivity : AppCompatActivity(), MvpView, View.OnClickListener {
         val adapter = CustomList(myApplication!!, this@MainActivity, listNames, listCompany, listImages, listFavorites)
         myApplication!!.setListViewAdapter(adapter)
         mListView!!.adapter = adapter
+
+        myIntent = Intent(this, AddEmployeeActivity::class.java)
+        myIntent.putExtra("keep", false)
+        startActivity(myIntent)
     }
 
     override fun onClick(v: View) {
