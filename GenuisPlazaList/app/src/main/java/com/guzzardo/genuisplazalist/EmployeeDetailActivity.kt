@@ -78,7 +78,7 @@ class EmployeeDetailActivity : AppCompatActivity() {
         presenter = myApplication!!.presenter
         val employeeId = myApplication!!.getEmployeeIdByPosition(positionSelected)
         val employeeData = presenter!!.model.getEmployee(employeeId)
-        //contactImageURL = employeeData!!.avatar // .largeImageURL
+        contactImageURL = employeeData!!.avatar // .largeImageURL
 
         //these parms are in pixels
         val imageHeight = contactImage!!.height
@@ -87,7 +87,7 @@ class EmployeeDetailActivity : AppCompatActivity() {
 
         parms = name.layoutParams as ConstraintLayout.LayoutParams
         val nameTopMargin = parms.topMargin
-        //name.text = employeeData.first_name + " " + employeeData.last_name
+        name.text = employeeData.first_name + " " + employeeData.last_name
 
         parms = company.layoutParams as ConstraintLayout.LayoutParams
         val companyTopMargin = parms.topMargin
