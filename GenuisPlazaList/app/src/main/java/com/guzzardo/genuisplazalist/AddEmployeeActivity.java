@@ -60,11 +60,18 @@ public class AddEmployeeActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.add_employee_tool_bar);
         setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.back_arrow);
+        toolbar.setNavigationOnClickListener(mBackIconPressed);
 
-        // Capture our button from layout
-        Button button = (Button)findViewById(R.id.add_employee_button);
+        // Capture Add button from layout
+        Button addButton = (Button)findViewById(R.id.add_employee_button);
         // Register the onClick listener with the implementation above
-        button.setOnClickListener(mAddContactListener);
+        addButton.setOnClickListener(mAddContactListener);
+
+        // Capture Cancel button from layout
+        Button cancelButton = (Button)findViewById(R.id.cancel_add_employee_button);
+        // Register the onClick listener with the implementation above
+        cancelButton.setOnClickListener(mCancelAddContactListener);
 
         firstName = this.findViewById(R.id.edit_first_name);
         lastName = this.findViewById(R.id.edit_last_name);
@@ -72,19 +79,42 @@ public class AddEmployeeActivity extends AppCompatActivity {
 
     public static void done() {
         System.out.println("add done");
-       // finish();
     }
+
+    // Create an anonymous implementation of OnClickListener
+    private View.OnClickListener mBackIconPressed = new View.OnClickListener() {
+        public void onClick(View v) {
+            onBackPressed();
+        }
+    };
 
     // Create an anonymous implementation of OnClickListener
     private View.OnClickListener mAddContactListener = new View.OnClickListener() {
         public void onClick(View v) {
-            // do something when the button is clicked
             firstNameText = firstName.getText().toString();
             lastNameText = lastName.getText().toString();
             System.out.println("got to here!");
+            if (firstNameText.trim().length() == 0 || lastNameText.trim().length() == 0) {
+                String result = "Please enter a first and a last name";
+                Toast.makeText(mContext, result, Toast.LENGTH_LONG).show();
+                return;
+            }
+
             addNewContact();
         }
     };
+
+    // Create an anonymous implementation of OnClickListener
+    private View.OnClickListener mCancelAddContactListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            onBackPressed();
+        }
+    };
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 
     private void addNewContact() {
         new SendPostRequest(mContext).execute();
