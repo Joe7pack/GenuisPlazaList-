@@ -25,7 +25,7 @@ import java.net.URLEncoder;
 import java.util.Iterator;
 import javax.net.ssl.HttpsURLConnection;
 
-public class AddEmployeeActivity extends AppCompatActivity {
+public class AddEmployeeActivityJava extends AppCompatActivity {
 
     static private Resources mResources;
     EditText firstName;
